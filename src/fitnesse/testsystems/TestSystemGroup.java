@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fitnesse.FitNesseContext;
+import fitnesse.slim.SlimClient;
 import fitnesse.slim.SlimCommandRunningClient;
 import fitnesse.testsystems.fit.FitTestSystem;
 import fitnesse.testsystems.fit.InProcessFitTestSystem;
 import fitnesse.testsystems.slim.HtmlSlimTestSystem;
 import fitnesse.testsystems.slim.InProcessSlimClientBuilder;
 import fitnesse.testsystems.slim.SlimClientBuilder;
+import fitnesse.testsystems.slim.internal.InternalSlimClient;
 
 public class TestSystemGroup {
   private Map<Descriptor, TestSystem> testSystems = new HashMap<Descriptor, TestSystem>();
@@ -66,7 +68,7 @@ public class TestSystemGroup {
   }
 
   private HtmlSlimTestSystem createInProcessHtmlSlimTestSystem(Descriptor descriptor) throws IOException {
-    SlimCommandRunningClient slimClient = new InProcessSlimClientBuilder(descriptor).build();
+    SlimClient slimClient = new InternalSlimClient(descriptor);
     HtmlSlimTestSystem testSystem = new HtmlSlimTestSystem(descriptor.getTestSystemName(), slimClient, testSystemListener);
 
     return testSystem;
